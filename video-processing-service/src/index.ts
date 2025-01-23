@@ -15,18 +15,7 @@ app.post("/process-video", (req,res) => {
     if (!inputFilePath || !outputFilePath) {
         res.status(400).send("Bad Request: Missing file path."); //client gave us wrong parameters
     }
-
-    //Converting the video
-    Ffmpeg(inputFilePath)
-    .outputOptions("-vf", "scale=-1:360") // 360 p resolution
-    .on("end", () => {
-        res.status(200).send("Video processing finished successfully.");
-    })
-    .on("error", (err) => {
-        console.log(`An error occured: ${err.message}`);
-        res.status(500).send(`Internal Server Error: ${err.message}`) // internal server error 
-    })
-    .save(outputFilePath);    
+ 
 });
 
 // set port 
