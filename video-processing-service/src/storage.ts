@@ -55,7 +55,14 @@ export function convertVideo(rawVideoName: string, processedVideoName: string){
  * @returns A promise that resolves when the file has been downloaded.
  */
 export async function downloadRawVideo(fileName: string) {
+    // blocks anything under from running until we finish downloading the rawVideo 
+    await storage.bucket(rawVideoBucketName)
+    .file(fileName)
+    .download({destination: `${localRawVideoPath}/${fileName}`});
 
+    console.log(
+        `gs://${rawVideoBucketName}/${fileName} downloaded to ${localRawVideoPath}/${fileName}.`
+    );
 }
 
 /**
@@ -64,5 +71,24 @@ export async function downloadRawVideo(fileName: string) {
  * @returns A promise that resolves when the file has been uploaded
  */
 export async function uploadProcessedVideo(fileName:string) {
+    const bucket = storage.bucket(processesdVideoBucketName); 
     
+    // uploading the file 
+    await bucket.upload(`${localProcessedVideoPath}/${fileName}`, {
+        destination:fileName
+    });
+
+    console.log(
+        `gs://${processesdVideoBucketName}/${fileName} uploaded to ${localProcessedVideoPath}/${fileName}.`
+    );
+
+    // set the file to be public 
+    // every video that's been processed is going to be public 
+    await bucket.file(fileName).makePublic();
 }
+
+/**
+ * @param filePath - The path of the file to delete.
+ * @returns A promise that resolves when the file has been deleted.
+ */
+
