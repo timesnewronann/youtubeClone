@@ -1,4 +1,4 @@
-import express, {Request, Response} from "express";
+import express,{Request, Response} from "express";
 import { convertVideo, deleteProcessedVideo, deleteRawVideo, downloadRawVideo, setupDirectories, uploadProcessedVideo } from "./storage";
 
 //call setup directories 
@@ -9,48 +9,50 @@ const app = express();
 app.use(express.json());
 
 
-app.post("/process-video", async(req,res):Promise<any> => {
-    // Get the bucket and filename from the Cloud Pub/Sub message (message queue)
-    let data;
+app.post("/process-video", async (req: Request, res: Response): Promise<void> => {
+    // Try block to handle operations that may throw errors
     try {
-        const message = Buffer.from(req.body.message.data,'base64').toString('utf-8');
-        data = JSON.parse(message);
-        if (!data.name){
-            throw new Error('Invalid message payload received.');
+        //Parse the message
+        const message = Buffer.from(req.body.message.data, 'base64').toString('utf-8');
+        const data = JSON.parse(message);
+
+        //Check if the needed data is give
+        if (!data.name) {
+            // Send a 400 bad request response and exit out
+            console.error("Invalid message payload received.");
+            res.status(400).send('Bad Request: missing filename.');
+            return; // NO need to execute 
         }
+        
+        //Keep executing if no errors
+        const inputFileName = data.name;
+        const outputFileName = `processed-${inputFileName}`;
+        
+        // Download the raw video from cloud storage
+        await downloadRawVideo(inputFileName);
+
+        // Convert the video to 360p
+        try {
+            await convertVideo(inputFileName, outputFileName);
+        } catch (err) {
+            await Promise.all([deleteRawVideo(inputFileName), deleteProcessedVideo(outputFileName)]);
+            console.error(err);
+            res.status(500).send('Internal Server Error: video processing failed.');
+            return;
+        }
+
+        // Upload the processed video to cloud storage
+        await uploadProcessedVideo(outputFileName);
+
+        await Promise.all([deleteRawVideo(inputFileName), deleteProcessedVideo(outputFileName)]);
+
+        res.status(200).send('Processing Finished successfully');
     } catch (error) {
         console.error(error);
-        return res.status(400).send('Bad Request: missing filename.');
+        res.status(500).send('Internal Server Error');
     }
-
-    const inputFileName = data.name;
-    const outputFileName = `processed-${inputFileName}`;
-    
-    //download the raw video from cloud storage
-    await downloadRawVideo(inputFileName);
-
-     // Convert the video to 360p
-     try {
-        await convertVideo(inputFileName, outputFileName);
-     } catch (err){
-        await Promise.all([
-        deleteRawVideo(inputFileName),
-        deleteProcessedVideo(outputFileName)
-        ]);
-        console.error(err);
-        return res.status(500).send('Internal Server Error: video processing failed.');
-     }
-
-    //Upload the processed video to cloud storage
-    await uploadProcessedVideo(outputFileName);
-
-    await Promise.all([
-        deleteRawVideo(inputFileName),
-        deleteProcessedVideo(outputFileName)
-    ]);
-
-    return res.status(200).send('Processing Finished successfully');
 });
+
 
 // set port 
 const port = process.env.PORT || 3000; // standard way to provide port at run time 
