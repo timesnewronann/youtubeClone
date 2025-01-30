@@ -41,4 +41,4 @@ yarn-error.log*
 next-env.d.ts
 
 # Firebase configuration
-/firebase/firebase.ts
+yt-web-client/app/firebase/firebase.ts
