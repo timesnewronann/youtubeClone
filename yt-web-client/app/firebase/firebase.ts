@@ -14,14 +14,16 @@ import {
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDxTd8OsuyLSLDkGtL7q3ZNA8uMhV624l4",
-  authDomain: "yt-clone-80b84.firebaseapp.com",
-  projectId: "yt-clone-80b84",
-  appId: "1:663031018613:web:c800b63b494abde4d1f43c",
-  measurementId: "G-KDJSMN4EC5"
-};
 
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDdHBFmC2YRN24CKXyiz2q9GVwQWgh1ehc",
+    authDomain: "yt-clone-80b84.firebaseapp.com",
+    projectId: "yt-clone-80b84",
+    appId: "1:663031018613:web:c20790a7f556963fd1f43c",
+    measurementId: "G-X27THPKZFF"
+  };
+  
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
