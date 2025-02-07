@@ -17,7 +17,7 @@ import {
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDgrZrgtyrTtb2Rpq3CLIZop6gKymjmdCY",
+    apiKey: "AIzaSyA84CvLXBZKKFbT-bs4FYWRorFmtHpln9E",
     authDomain: "yt-clone-80b84.firebaseapp.com",
     projectId: "yt-clone-80b84",
     appId: "1:663031018613:web:c20790a7f556963fd1f43c",
