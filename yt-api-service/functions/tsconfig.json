@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017"
+  },
+  "compileOnSave": true,
+  "include": [
+    "src",
+    "functions/**/*.ts",
+    "lib/**/*.ts",
+    "*.ts",
+    "*.js"  // ✅ Allows `.js` files (fixes ESLint issue)
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "lib/**/*.js" // ✅ Optional: Exclude compiled `.js` files if needed
+  ]
+}
