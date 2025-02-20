@@ -9,7 +9,9 @@ import * as logger from "firebase-functions/logger";
 // Google Cloud Storage
 import { Storage } from "@google-cloud/storage";
 // Callable function for frontend requests
-import { onCall } from "firebase-functions/v2/https";
+import { onRequest } from "firebase-functions/v2/https";
+// Firebase Admin Auth
+import { getAuth } from "firebase-admin/auth";
 
 initializeApp();
 const firestore = new Firestore();
@@ -49,39 +51,75 @@ export const createUser = beforeUserCreated(
 
 // Generates a signed URL for authenticated users
 // to upload videos to Google Cloud Storage.
-export const generateUploadURL = onCall(
-  { maxInstances: 1 },
-  async (request) => {
-    // Check if the user is authenticated
-    if (!request.auth) {
-      throw new Error("User must be authenticated to generate an upload URL.");
+export const generateUploadURL = onRequest(
+  { region: "us-west2" }, // Set region to us-west2
+  async (req, res): Promise<void> => {
+    logger.info("generateUploadURL function triggered");
+
+    // Handle CORS Preflight Requests
+    res.set("Access-Control-Allow-Origin", "*"); // Allow all origins
+    res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+    if (req.method === "OPTIONS") {
+      res.status(204).send(""); // Respond to preflight request
+      return;
     }
+
+    // Secure authentication: Extract and verify Firebase Auth token
+    const authHeader = req.headers.authorization;
+    console.log("Debugging - Received Auth Header:", authHeader);
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      res.status(401).json({ error: "Unauthorized: Missing or invalid token" });
+      return;
+    }
+
+    let userId: string; // Declare userId outside of try block
     try {
-      const auth = request.auth;
-      const data = request.data;
+      // Verify Firebase ID token
+      const idToken = authHeader.split("Bearer ")[1];
+      console.log("Extracted Token:", idToken);
+
+      const decodedToken = await getAuth().verifyIdToken(idToken);
+      console.log("Decoded Token:", decodedToken);
+
+      userId = decodedToken.uid;
+      logger.info(`User ${userId} authenticated for upload URL generation`);
+    } catch (error) {
+      logger.error("Token verification failed:", error);
+      res.status(401).json({ error: "Unauthorized: Invalid token" });
+      return;
+    }
+
+    try {
+      const data = req.body;
       const bucket = storage.bucket(rawVideoBucketName);
 
-      // Make sure that the fileExtension is provided
+      // Make sure file extension is provided
       if (!data.fileExtension) {
-        throw new Error("Missing required parameter: fileExtension");
+        res
+          .status(400)
+          .json({ error: "Missing required parameter: fileExtension" });
+        return;
       }
 
       // Generate a unique filename
-      const fileName = `${auth.uid} -${Date.now()}.${data.fileExtension}`;
+      const fileName = `${userId}-${Date.now()}.${data.fileExtension}`;
 
-      // Get a v4 signed url for uploading file
+      // Get a v4 signed URL for uploading file
       const [url] = await bucket.file(fileName).getSignedUrl({
         version: "v4",
         action: "write",
-        expires: Date.now() + 15 * 60 * 1000, // URL will only be valid for 15 minutes
+        expires: Date.now() + 15 * 60 * 1000, // 15 minutes
       });
 
       logger.info(`Generated upload URL for ${fileName}`);
 
-      return { url, fileName };
+      res.json({ url, fileName });
     } catch (error) {
       logger.error("Error generating upload URL:", error);
-      throw new Error("Failed to generate upload URL.");
+      res.status(500).json({ error: "Failed to generate upload URL." });
     }
   },
 );

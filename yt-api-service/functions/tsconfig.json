@@ -16,7 +16,7 @@
     "functions/**/*.ts",
     "lib/**/*.ts",
     "*.ts",
-    "*.js"  // ✅ Allows `.js` files (fixes ESLint issue)
+    "*.js" // ✅ Allows `.js` files (fixes ESLint issue)
   ],
   "exclude": [
     "node_modules",

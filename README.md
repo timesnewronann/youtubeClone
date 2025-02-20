@@ -217,7 +217,6 @@ gcloud run deploy video-processing-service \
 ## **👨‍💻 Contributors**
 
 - **@timesnewronan** - Backend & Cloud Infrastructure
-- **@your-teammate (if applicable)** - Frontend & UI Design
 
 ---
 
