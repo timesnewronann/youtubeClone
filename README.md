@@ -2,7 +2,7 @@
 
 A full-stack **YouTube Clone** using **Next.js, Firebase, Google Cloud Storage, Cloud Run, and FFmpeg** for **video processing** and **user authentication**.
 
-### ** Features**
+### **Features**
 
  **User Authentication** - Google Sign-In with Firebase Auth  
  **Video Processing Service** - Converts videos to 360p before upload  
@@ -43,7 +43,7 @@ youtubeClone/
 
 ---
 
-## ** Tech Stack**
+## **Tech Stack**
 
 | **Technology**           | **Purpose**                                 |
 | ------------------------ | ------------------------------------------- |
@@ -58,7 +58,7 @@ youtubeClone/
 
 ---
 
-## **🔧 Setup & Installation**
+## **Setup & Installation**
 
 ### **1️ Clone the Repository**
 
