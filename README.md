@@ -1,19 +1,19 @@
-## **📌 YouTube Clone - Video Processing & Authentication**
+## ** YouTube Clone - Video Processing & Authentication**
 
 A full-stack **YouTube Clone** using **Next.js, Firebase, Google Cloud Storage, Cloud Run, and FFmpeg** for **video processing** and **user authentication**.
 
-### **🌟 Features**
+### ** Features**
 
-✅ **User Authentication** - Google Sign-In with Firebase Auth  
-✅ **Video Processing Service** - Converts videos to 360p before upload  
-✅ **Google Cloud Storage** - Stores raw and processed videos  
-✅ **Cloud Functions** - Automatically stores user data in Firestore on sign-up  
-✅ **Next.js Frontend** - Fully responsive UI with authentication & video management  
-✅ **Dockerized Backend** - FFmpeg video processing runs inside containers
+ **User Authentication** - Google Sign-In with Firebase Auth  
+ **Video Processing Service** - Converts videos to 360p before upload  
+ **Google Cloud Storage** - Stores raw and processed videos  
+ **Cloud Functions** - Automatically stores user data in Firestore on sign-up  
+ **Next.js Frontend** - Fully responsive UI with authentication & video management  
+ **Dockerized Backend** - FFmpeg video processing runs inside containers
 
 ---
 
-## **📁 Project Structure**
+## **Project Structure**
 
 ```
 youtubeClone/
@@ -43,7 +43,7 @@ youtubeClone/
 
 ---
 
-## **💡 Tech Stack**
+## ** Tech Stack**
 
 | **Technology**           | **Purpose**                                 |
 | ------------------------ | ------------------------------------------- |
@@ -60,30 +60,30 @@ youtubeClone/
 
 ## **🔧 Setup & Installation**
 
-### **1️⃣ Clone the Repository**
+### **1️ Clone the Repository**
 
 ```bash
 git clone https://github.com/your-username/youtubeClone.git
 cd youtubeClone
 ```
 
-### **2️⃣ Install Dependencies**
+### **2️ Install Dependencies**
 
-#### 📌 **Frontend (Next.js)**
+####  **Frontend (Next.js)**
 
 ```bash
 cd yt-web-client
 npm install
 ```
 
-#### 📌 **Backend (Firebase Functions)**
+####  **Backend (Firebase Functions)**
 
 ```bash
 cd yt-api-service/functions
 npm install
 ```
 
-#### 📌 **Video Processing Service**
+####  **Video Processing Service**
 
 ```bash
 cd video-processing-service
@@ -92,12 +92,12 @@ docker build -t video-processing-service .
 
 ---
 
-## **🌍 Environment Variables (`.env.local`)**
+## ** Environment Variables (`.env.local`)**
 
 Each service requires environment variables stored in `.env.local`.  
 **DO NOT COMMIT** these files.
 
-📌 **Frontend (`yt-web-client/.env.local`)**
+ **Frontend (`yt-web-client/.env.local`)**
 
 ```env
 NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
@@ -107,7 +107,7 @@ NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your-measurement-id
 ```
 
-📌 **Backend (`yt-api-service/.env.local`)**
+ **Backend (`yt-api-service/.env.local`)**
 
 ```env
 FIREBASE_ADMIN_SDK_KEY=your-firebase-admin-key
@@ -116,7 +116,7 @@ FIREBASE_DATABASE_URL=your-database-url
 
 ---
 
-## **🚀 Running the Project**
+## ** Running the Project**
 
 ### **Frontend (Next.js)**
 
@@ -125,7 +125,7 @@ cd yt-web-client
 npm run dev
 ```
 
-📌 Runs at: **`http://localhost:3000`**
+ Runs at: **`http://localhost:3000`**
 
 ### **Backend (Firebase Functions)**
 
@@ -134,7 +134,7 @@ cd yt-api-service/functions
 firebase emulators:start
 ```
 
-📌 Opens Firebase Emulator UI at **`http://localhost:4000`**
+ Opens Firebase Emulator UI at **`http://localhost:4000`**
 
 ### **Dockerized Video Processing**
 
@@ -143,19 +143,19 @@ cd video-processing-service
 docker run -p 3000:3000 video-processing-service
 ```
 
-📌 Runs **FFmpeg Video Processing** inside a Docker container.
+ Runs **FFmpeg Video Processing** inside a Docker container.
 
 ---
 
-## **🔥 Core Functionalities**
+## ** Core Functionalities**
 
-### **📌 User Authentication**
+### ** User Authentication**
 
 ✅ Users can log in with **Google Sign-In**  
 ✅ **Firestore** stores user info when an account is created  
 ✅ **Uses `beforeUserCreated` Cloud Function**
 
-### **📌 Video Upload & Processing**
+### ** Video Upload & Processing**
 
 ✅ Raw videos are uploaded to **Google Cloud Storage**  
 ✅ **Cloud Function triggers** `process-video` in Cloud Run  
@@ -163,15 +163,15 @@ docker run -p 3000:3000 video-processing-service
 
 ---
 
-## **🔄 Deployment**
+## ** Deployment**
 
-### **🟢 Firebase Functions**
+### ** Firebase Functions**
 
 ```bash
 firebase deploy --only functions
 ```
 
-### **🟢 Cloud Run Deployment**
+### ** Cloud Run Deployment**
 
 ```bash
 gcloud run deploy video-processing-service \
@@ -181,9 +181,9 @@ gcloud run deploy video-processing-service \
 
 ---
 
-## **🛠️ Common Issues & Fixes**
+## ** Common Issues & Fixes**
 
-### **1️⃣ `.env.local` Not Working?**
+### **1️ `.env.local` Not Working?**
 
 - Run:
   ```bash
@@ -191,12 +191,12 @@ gcloud run deploy video-processing-service \
   ```
 - If `.env.local` is NOT ignored, add it to `.gitignore` and remove it from Git.
 
-### **2️⃣ Firebase User Not Created in Firestore?**
+### **2️ Firebase User Not Created in Firestore?**
 
 - Ensure `beforeUserCreated` function is **enabled in Firebase Console → Authentication → Blocking Functions**.
 - Run `firebase logs` to check errors.
 
-### **3️⃣ Docker Build Issues?**
+### **3️ Docker Build Issues?**
 
 - If `amd64` errors occur, try:
   ```bash
@@ -205,21 +205,21 @@ gcloud run deploy video-processing-service \
 
 ---
 
-## **📝 Future Features**
+## ** Future Features**
 
-🚀 **[ ] Video Thumbnails** - Generate thumbnails during processing  
-🚀 **[ ] Video Playback** - Implement a player with seeking & buffering  
-🚀 **[ ] Video Metadata** - Store more details in Firestore  
-🚀 **[ ] Comments & Likes** - Allow users to interact with videos
+ **[ ] Video Thumbnails** - Generate thumbnails during processing  
+ **[ ] Video Playback** - Implement a player with seeking & buffering  
+ **[ ] Video Metadata** - Store more details in Firestore  
+ **[ ] Comments & Likes** - Allow users to interact with videos
 
 ---
 
-## **👨‍💻 Contributors**
+## ** Contributors**
 
 - **@timesnewronan** - Backend & Cloud Infrastructure
 
 ---
 
-## **📜 License**
+## ** License**
 
-📌 This project is **MIT Licensed** – Feel free to use, modify, and distribute.
+ This project is **MIT Licensed** – Feel free to use, modify, and distribute.
