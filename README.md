@@ -1,4 +1,4 @@
-##  YouTube Clone - Video Processing & Authentication
+## **YouTube Clone** - Video Processing & Authentication
 
 A full-stack **YouTube Clone** using **Next.js, Firebase, Google Cloud Storage, Cloud Run, and FFmpeg** for **video processing** and **user authentication**.
 
