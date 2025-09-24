@@ -92,12 +92,12 @@ docker build -t video-processing-service .
 
 ---
 
-## ** Environment Variables (`.env.local`)**
+## **Environment Variables(`.env.local`)**
 
 Each service requires environment variables stored in `.env.local`.  
 **DO NOT COMMIT** these files.
 
- **Frontend (`yt-web-client/.env.local`)**
+ **Frontend(`yt-web-client/.env.local`)**
 
 ```env
 NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
@@ -107,7 +107,7 @@ NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your-measurement-id
 ```
 
- **Backend (`yt-api-service/.env.local`)**
+ **Backend(`yt-api-service/.env.local`)**
 
 ```env
 FIREBASE_ADMIN_SDK_KEY=your-firebase-admin-key
@@ -116,9 +116,9 @@ FIREBASE_DATABASE_URL=your-database-url
 
 ---
 
-## ** Running the Project**
+## **Running the Project**
 
-### **Frontend (Next.js)**
+### **Frontend(Next.js)**
 
 ```bash
 cd yt-web-client
@@ -127,7 +127,7 @@ npm run dev
 
  Runs at: **`http://localhost:3000`**
 
-### **Backend (Firebase Functions)**
+### **Backend(Firebase Functions)**
 
 ```bash
 cd yt-api-service/functions
@@ -147,15 +147,15 @@ docker run -p 3000:3000 video-processing-service
 
 ---
 
-## ** Core Functionalities**
+## **Core Functionalities**
 
-### ** User Authentication**
+### **User Authentication**
 
  Users can log in with **Google Sign-In**  
  **Firestore** stores user info when an account is created  
  **Uses `beforeUserCreated` Cloud Function**
 
-### ** Video Upload & Processing**
+### **Video Upload & Processing**
 
  Raw videos are uploaded to **Google Cloud Storage**  
  **Cloud Function triggers** `process-video` in Cloud Run  
@@ -163,15 +163,15 @@ docker run -p 3000:3000 video-processing-service
 
 ---
 
-## ** Deployment**
+## **Deployment**
 
-### ** Firebase Functions**
+### **Firebase Functions**
 
 ```bash
 firebase deploy --only functions
 ```
 
-### ** Cloud Run Deployment**
+### **Cloud Run Deployment**
 
 ```bash
 gcloud run deploy video-processing-service \
@@ -181,7 +181,7 @@ gcloud run deploy video-processing-service \
 
 ---
 
-## ** Common Issues & Fixes**
+## **Common Issues & Fixes**
 
 ### **1️ `.env.local` Not Working?**
 
@@ -205,7 +205,7 @@ gcloud run deploy video-processing-service \
 
 ---
 
-## ** Future Features**
+## **Future Features**
 
  **[ ] Video Thumbnails** - Generate thumbnails during processing  
  **[ ] Video Playback** - Implement a player with seeking & buffering  
@@ -214,12 +214,12 @@ gcloud run deploy video-processing-service \
 
 ---
 
-## ** Contributors**
+## **Contributors**
 
 - **@timesnewronan** - Backend & Cloud Infrastructure
 
 ---
 
-## ** License**
+## **License**
 
  This project is **MIT Licensed** – Feel free to use, modify, and distribute.
