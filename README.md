@@ -151,15 +151,15 @@ docker run -p 3000:3000 video-processing-service
 
 ### ** User Authentication**
 
-✅ Users can log in with **Google Sign-In**  
-✅ **Firestore** stores user info when an account is created  
-✅ **Uses `beforeUserCreated` Cloud Function**
+ Users can log in with **Google Sign-In**  
+ **Firestore** stores user info when an account is created  
+ **Uses `beforeUserCreated` Cloud Function**
 
 ### ** Video Upload & Processing**
 
-✅ Raw videos are uploaded to **Google Cloud Storage**  
-✅ **Cloud Function triggers** `process-video` in Cloud Run  
-✅ FFmpeg **converts the video to 360p** before storing
+ Raw videos are uploaded to **Google Cloud Storage**  
+ **Cloud Function triggers** `process-video` in Cloud Run  
+ FFmpeg **converts the video to 360p** before storing
 
 ---
 
